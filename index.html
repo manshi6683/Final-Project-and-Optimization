@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusShop - Premium E-commerce Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Performance optimized CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+        }
+        
+        /* Smooth animations */
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        /* Lazy loading for images */
+        img.lazy {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        img.loaded {
+            opacity: 1;
+        }
+        
+        /* Performance optimizations */
+        .will-change {
+            will-change: transform, opacity;
+        }
+        
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .transition-all {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                        <span class="text-white font-bold text-xl">N</span>
+                    </div>
+                    <h1 class="text-2xl font-bold text-gray-800">NexusShop</h1>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-blue-600 transition-colors">Home</a>
+                    <a href="#products" class="text-gray-600 hover:text-blue-600 transition-colors">Products</a>
+                    <a href="#features" class="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
+                    <a href="#about" class="text-gray-600 hover:text-blue-600 transition-colors">About</a>
+                </nav>
+
+                <!-- Cart and Search -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:block relative">
+                        <input type="text" placeholder="Search products..." class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+                    </div>
+                    
+                    <div class="relative">
+                        <button id="cartBtn" class="p-2 text-gray-600 hover:text-blue-600 transition-colors">
+                            <i class="fas fa-shopping-cart text-xl"></i>
+                            <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                        </button>
+                    </div>
+                    
+                    <button class="md:hidden p-2 text-gray-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-gradient-to-r from-blue-600 to-purple-700 text-white py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6">Discover Premium Products</h2>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">Experience the future of shopping with our curated collection of high-quality products</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        Shop Now
+                    </button>
+                    <button class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Animated background elements -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+            <div class="absolute top-20 left-10 w-20 h-20 bg-white opacity-10 rounded-full animate-pulse"></div>
+            <div class="absolute top-40 right-20 w-16 h-16 bg-white opacity-10 rounded-full animate-pulse delay-300"></div>
+            <div class="absolute bottom-20 left-20 w-24 h-24 bg-white opacity-10 rounded-full animate-pulse delay-700"></div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="products" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Featured Products</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Discover our handpicked selection of premium products that combine quality, style, and innovation</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <button class="px-6 py-2 rounded-full bg-blue-600 text-white font-semibold transition-all hover:bg-blue-700">
+                    All Products
+                </button>
+                <button class="px-6 py-2 rounded-full border border-gray-300 text-gray-600 font-semibold transition-all hover:bg-gray-50">
+                    Electronics
+                </button>
+                <button class="px-6 py-2 rounded-full border border-gray-300 text-gray-600 font-semibold transition-all hover:bg-gray-50">
+                    Fashion
+                </button>
+                <button class="px-6 py-2 rounded-full border border-gray-300 text-gray-600 font-semibold transition-all hover:bg-gray-50">
+                    Home & Living
+                </button>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Product 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all will-change">
+                    <div class="relative overflow-hidden">
+                        <img 
+                            src="https://placehold.co/400x300" 
+                            alt="Wireless Bluetooth headphones with noise cancellation in matte black finish" 
+                            class="w-full h-48 object-cover lazy transition-all hover:scale-105"
+                            loading="lazy"
+                        >
+                        <div class="absolute top-3 right-3 bg-red-500 text-white px-2 py-1 rounded text-sm font-semibold">
+                            Sale
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Premium Headphones</h3>
+                        <p class="text-gray-600 mb-4">Wireless noise-cancelling headphones with premium sound quality</p>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-blue-600">$199.99</span>
+                                <span class="text-sm text-gray-500 line-through ml-2">$249.99</span>
+                            </div>
+                            <button class="add-to-cart bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors" data-product="Premium Headphones" data-price="199.99">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all will-change">
+                    <div class="relative overflow-hidden">
+                        <img 
+                            src="https://placehold.co/400x300" 
+                            alt="Modern smartwatch with fitness tracking and heart rate monitoring features" 
+                            class="w-full h-48 object-cover lazy transition-all hover:scale-105"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Smart Watch Pro</h3>
+                        <p class="text-gray-600 mb-4">Advanced fitness tracking with heart rate monitoring</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-blue-600">$299.99</span>
+                            <button class="add-to-cart bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors" data-product="Smart Watch Pro" data-price="299.99">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all will-change">
+                    <div class="relative overflow-hidden">
+                        <img 
+                            src="https://placehold.co/400x300" 
+                            alt="Ultra-thin laptop with high-resolution display and backlit keyboard" 
+                            class="w-full h-48 object-cover lazy transition-all hover:scale-105"
+                            loading="lazy"
+                        >
+                        <div class="absolute top-3 left-3 bg-green-500 text-white px-2 py-1 rounded text-sm font-semibold">
+                            New
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Ultrabook Laptop</h3>
+                        <p class="text-gray-600 mb-4">Lightweight and powerful laptop for professionals</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-blue-600">$1299.99</span>
+                            <button class="add-to-cart bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors" data-product="Ultrabook Laptop" data-price="1299.99">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all will-change">
+                    <div class="relative overflow-hidden">
+                        <img 
+                            src="https://placehold.co/400x300" 
+                            alt="Wireless charging station for multiple devices with LED indicators" 
+                            class="w-full h-48 object-cover lazy transition-all hover:scale-105"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Wireless Charger</h3>
+                        <p class="text-gray-600 mb-4">Fast wireless charging for multiple devices simultaneously</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl font-bold text-blue-600">$89.99</span>
+                            <button class="add-to-cart bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition-colors" data-product="Wireless Charger" data-price="89.99">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Why Choose Us</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">We're committed to providing the best shopping experience with premium products and exceptional service</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-shipping-fast text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Free Shipping</h3>
+                    <p class="text-gray-600">Free shipping on all orders over $50 with fast delivery</p>
+                </div>
+
+                <div class="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-shield-alt text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Secure Payment</h3>
+                    <p class="text-gray-600">100% secure payment processing with encryption</p>
+                </div>
+
+                <div class="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-undo text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">30-Day Returns</h3>
+                    <p class="text-gray-600">Easy returns within 30 days for all products</p>
+                </div>
+
+                <div class="text-center p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-all">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-headset text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">24/7 Support</h3>
+                    <p class="text-gray-600">Round-the-clock customer support for all your needs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-blue-600 text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Stay Updated</h2>
+                <p class="text-blue-100 mb-8">Subscribe to our newsletter for exclusive deals and new product announcements</p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                    <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white">
+                    <button class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">NexusShop</h3>
+                    <p class="text-gray-400">Premium products for modern living. Quality guaranteed.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Products</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Returns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Shipping</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Connect With Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 NexusShop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="absolute right-0 top-0 h-full w-full md:w-96 bg-white shadow-xl">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">Your Cart</h3>
+                    <button id="closeCart" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <div id="cartItems" class="space-y-4 mb-6">
+                    <!-- Cart items will be dynamically added here -->
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-shopping-cart text-4xl mb-4"></i>
+                        <p>Your cart is empty</p>
+                    </div>
+                </div>
+                
+                <div class="border-t pt-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="font-semibold">Total:</span>
+                        <span id="cartTotal" class="text-xl font-bold">$0.00</span>
+                    </div>
+                    <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                        Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Performance Optimized JavaScript -->
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cart functionality
+            const cartBtn = document.getElementById('cartBtn');
+            const cartModal = document.getElementById('cartModal');
+            const closeCart = document.getElementById('closeCart');
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            let cart = [];
+            let total = 0;
+
+            // Cart modal toggle
+            cartBtn.addEventListener('click', () => {
+                cartModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+
+            closeCart.addEventListener('click', () => {
+                cartModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Add to cart functionality
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const product = this.getAttribute('data-product');
+                    const price = parseFloat(this.getAttribute('data-price'));
+                    
+                    // Add to cart
+                    cart.push({ product, price });
+                    total += price;
+                    
+                    // Update UI
+                    updateCart();
+                    
+                    // Show success message
+                    showNotification('Product added to cart!');
+                });
+            });
+
+            function updateCart() {
+                // Update count
+                cartCount.textContent = cart.length;
+                
+                // Update items list
+                if (cart.length === 0) {
+                    cartItems.innerHTML = `
+                        <div class="text-center py-8 text-gray-500">
+                            <i class="fas fa-shopping-cart text-4xl mb-4"></i>
+                            <p>Your cart is empty</p>
+                        </div>
+                    `;
+                } else {
+                    cartItems.innerHTML = cart.map((item, index) => `
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div>
+                                <h4 class="font-semibold">${item.product}</h4>
+                                <p class="text-blue-600">$${item.price.toFixed(2)}</p>
+                            </div>
+                            <button class="remove-item text-red-500 hover:text-red-700" data-index="${index}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `).join('');
+                    
+                    // Add event listeners to remove buttons
+                    document.querySelectorAll('.remove-item').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const index = parseInt(this.getAttribute('data-index'));
+                            total -= cart[index].price;
+                            cart.splice(index, 1);
+                            updateCart();
+                        });
+                    });
+                }
+                
+                // Update total
+                cartTotal.textContent = `$${total.toFixed(2)}`;
+            }
+
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300';
+                notification.textContent = message;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => notification.remove(), 300);
+                }, 2000);
+            }
+
+            // Lazy loading images
+            const lazyImages = document.querySelectorAll('img.lazy');
+            
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.classList.add('loaded');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+
+                lazyImages.forEach(img => imageObserver.observe(img));
+            } else {
+                // Fallback for browsers without IntersectionObserver
+                lazyImages.forEach(img => {
+                    img.classList.add('loaded');
+                });
+            }
+
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Mobile menu toggle (simplified)
+            document.querySelector('button:last-child').addEventListener('click', function() {
+                alert('Mobile menu would open here');
+            });
+
+            // Performance monitoring
+            window.addEventListener('load', function() {
+                console.log('Page fully loaded and optimized');
+            });
+        });
+
+        // Cross-browser compatibility polyfills
+        if (!NodeList.prototype.forEach) {
+            NodeList.prototype.forEach = Array.prototype.forEach;
+        }
+    </script>
+</body>
+</html>
